@@ -23,6 +23,33 @@ class GraphView: UIView {
             maxValue = max(maxValue, -minValue)
         }
     }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        layer.borderColor = UIColor.systemGray.cgColor
+        layer.borderWidth = 1
+        drawGrid(rect)
+    }
+    
+    private func drawGrid(_ rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let width: Int = Int(bounds.width)
+        let fraction: Int = Int(bounds.width) / 8
+        
+        context.beginPath()
+        context.setLineWidth(1)
+        context.setStrokeColor(UIColor.systemGray.cgColor)
+        
+        for i in 1..<8 {
+            context.move(to: CGPoint(x: .zero, y: fraction * i))
+            context.addLine(to: CGPoint(x: width, y: fraction * i))
+            context.move(to: CGPoint(x: fraction * i, y: .zero))
+            context.addLine(to: CGPoint(x: fraction * i, y: width))
+        }
+        
+        context.drawPath(using: .stroke)
+        context.closePath()
+    }
 
     private func calculateY(_ y: Double) -> CGFloat {
         let height = frame.height
@@ -42,6 +69,7 @@ class GraphView: UIView {
         lineLayer.frame = bounds
         lineLayer.path = path.cgPath
         lineLayer.strokeColor = color
+        lineLayer.masksToBounds = true
         self.layer.addSublayer(lineLayer)
         self.setNeedsDisplay()
     }

@@ -34,7 +34,7 @@ final class RecordMotionDataViewController: UIViewController {
 
     private let segmentedControl = UISegmentedControl()
     private let graphView: GraphView = {
-        let graphView = GraphView(frame: .zero)
+        let graphView = GraphView()
         graphView.backgroundColor = .systemBackground
         graphView.translatesAutoresizingMaskIntoConstraints = false
         return graphView

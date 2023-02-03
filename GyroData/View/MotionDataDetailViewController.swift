@@ -29,7 +29,7 @@ final class MotionDataDetailViewController: UIViewController {
     }()
     
     private let graphView: GraphView = {
-        let graphView = GraphView(frame: .zero)
+        let graphView = GraphView()
         graphView.backgroundColor = .systemBackground
         graphView.translatesAutoresizingMaskIntoConstraints = false
         return graphView
